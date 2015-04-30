@@ -13,7 +13,7 @@ if ($_GET['debug'] === 'true') {
 }
 
 if ($id !== '') {
-	$sql = "SELECT * FROM `{$table}` WHERE account_id='$id'";
+	$sql = "SELECT * FROM `{$table}` WHERE salesforce_id='$id'";
 	if (!$result = $db->query($sql)) {
         die('There was an error running the query [' . $db->error . ']');
     } else {
@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') {
 		}
 	}
 
-	$sql .= " WHERE account_id = '$id'";
+	$sql .= " WHERE salesforce_id = '$id'";
 
 	if ( isset($email) && $valid == TRUE) {
 		include('config.php');
