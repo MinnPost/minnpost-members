@@ -11,8 +11,8 @@
 <link rel="shortcut icon" href="//www.minnpost.com/sites/default/themes/siteskin/favicon.ico" type="image/x-icon" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<link rel="stylesheet" href="bower_components/minnpost-styles/dist/minnpost-styles.min.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/bower_components/minnpost-styles/dist/minnpost-styles.min.css">
+<link rel="stylesheet" href="/style.css">
 
 </head>
 
