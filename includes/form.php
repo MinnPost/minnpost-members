@@ -3,8 +3,8 @@
     <input type="hidden" value="1" name="accept" id="accept">
     <input type="hidden" value="<?php echo $account['account_id']; ?>" name="id" id="id">
     <fieldset class="subscription-type">
-        <label><input type="radio" name="atlantic_status" value="new" <?php if ($atlantic_status == 'new') { ?> checked="checked"<?php } ?>> Start a new subscription</label>
-        <label><input type="radio" name="atlantic_status" value="existing" id="existing-subscription"<?php if ($atlantic_status == 'existing') { ?> checked="checked"<?php } ?>> Extend an existing subscription</label>
+        <label><input type="radio" name="atlantic_status" id="atlantic_new" value="new" <?php if ($atlantic_status == 'new') { ?> checked="checked"<?php } ?>> Start a new subscription</label>
+        <label><input type="radio" name="atlantic_status" id="atlantic_existing" value="existing" id="existing-subscription"<?php if ($atlantic_status === 'existing') { ?> checked="checked"<?php } ?>> Extend an existing subscription</label>
         <div class="form-item atlantic_id">
             <label>Existing Subscription ID
               <input type="text" autocapitalize="off" autocorrect="off" name="atlantic_id" id="atlantic_id" value="<?php echo $atlantic_id; ?>">
@@ -22,12 +22,6 @@
         <div class="form-item">
             <label>Names on MinnPost Membership
               <input type="text" autocapitalize="off" autocorrect="off" value="<?php echo $name; ?>" name="name" id="name" required="required">
-            </label>
-        </div>
-
-        <div class="form-item use-geocomplete">
-            <label>Full Address
-              <input type="text" autocapitalize="off" autocorrect="off" value="<?php echo $full_address; ?>" name="full_address" id="full_address" class="geocomplete">
             </label>
         </div>
         
@@ -77,11 +71,6 @@
         <div class="form-item">
             <label>Name
               <input type="text" autocapitalize="off" autocorrect="off" value="<?php echo $shipping_name; ?>" name="shipping_name" id="shipping_name">
-            </label>
-        </div>
-        <div class="form-item use-geocomplete">
-            <label>Full Address
-              <input type="text" autocapitalize="off" autocorrect="off" value="<?php echo $shipping_full_address; ?>" name="shipping_full_address" id="shipping_full_address">
             </label>
         </div>
         <div class="form-item not-geocomplete">

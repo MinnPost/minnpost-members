@@ -45,12 +45,12 @@ function getFullAddress() {
 
 }
 
-$(function() {
-	/*if (google.hasOwnProperty('maps')) {
+/*$(function() {
+	if (google.hasOwnProperty('maps')) {
 		getFullAddress();
-	}*/
+	}
 	$('.use-geocomplete').hide();
-});
+});*/
 
 $(document).ready(function() {
 
@@ -60,7 +60,13 @@ $(document).ready(function() {
 		differentAddressForShipping(c);
 	});
 
-	existingSubscription(false);
+	var atlantic_id = $('#atlantic_id').val();
+	if(atlantic_id.length > 0) {
+		//alert('test');
+		existingSubscription('existing');
+	} else {
+		existingSubscription('new');
+	}
 	$('form input[name=atlantic_status]').on('change', function() {
 		var status = $('input[name=atlantic_status]:checked', 'form').val();
 		existingSubscription(status);

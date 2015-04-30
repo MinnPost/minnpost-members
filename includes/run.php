@@ -25,7 +25,7 @@ if ($id !== '') {
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') {
 
 	$email = $account['email'];
 	$name = $account['name'];
@@ -37,6 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 	$full_address = $street . ', ' . $city . ', ' . $state . ' ' . $zip;
 
 	$atlantic_status = $account['atlantic_status'];
+	if ($atlantic_status == 'existing') {
+		$atlantic_id = $account['atlantic_id'];
+	}
 
 	include('form.php');
 } else {
