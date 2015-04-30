@@ -36,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 
 	$full_address = $street . ', ' . $city . ', ' . $state . ' ' . $zip;
 
+	$atlantic_status = $account['atlantic_status'];
+
 	include('form.php');
 } else {
 	$valid = TRUE;
