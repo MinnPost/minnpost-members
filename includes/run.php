@@ -37,6 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') {
 	$full_address = $street . ', ' . $city . ', ' . $state . ' ' . $zip;
 
 	$atlantic_status = $account['atlantic_status'];
+	if (!isset($account['atlantic_status'])) {
+    	$atlantic_status = 'new';
+    }
 	if ($atlantic_status == 'existing') {
 		$atlantic_id = $account['atlantic_id'];
 	}
@@ -61,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') {
 	$full_address = $street . ', ' . $city . ', ' . $state . ' ' . $zip;
 
 	$address_type = filter_var($_POST['address_type'], FILTER_SANITIZE_STRING);
+	$sql .= ", address_type = '$address_type'";
 
 	if ($previously_changed == 1 || $account['email'] != $email || $account['name'] != $name || $account['street'] != $street || $account['city'] != $city || $account['state'] != $state || $account['zip'] != $zip) {
 		$changed = 1;
