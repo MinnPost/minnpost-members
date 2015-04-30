@@ -93,7 +93,7 @@
 
         <div class="form-item not-geocomplete">
             <label>Zip Code
-              <input type="number" value="<?php echo $shipping_zip; ?>" name="shipping_zip" id="shipping_zip" data-shipping-geo="postal_code">
+              <input type="text" value="<?php echo $shipping_zip; ?>" name="shipping_zip" id="shipping_zip" data-shipping-geo="postal_code">
             </label>
         </div>
 
