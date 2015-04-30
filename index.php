@@ -1,1 +1,3 @@
-Tue Apr 28 14:47:21 EDT 2015
+<?php include('includes/head.php'); ?>
+<?php include('includes/run.php'); ?>    
+<?php include('includes/footer.php'); ?>
