@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
 	$id = '';
 }
 if ($_GET['debug'] === 'true') {
-	echo $id;
+	echo 'loading user with id of ' . $id;
 }
 
 if ($id !== '') {
