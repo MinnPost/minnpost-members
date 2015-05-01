@@ -1,6 +1,6 @@
 <section>
-	<h3 class="component-label">Thank you for your Atlantic subscription request</h3>
-	<p>We have received your subscription request, and will provide The Atlantic with the following information.</p>
+	<h3 class="component-label">Thank you for supporting MinnPost</h3>
+	<p>We will submit a subscription request to The Atlantic on your behalf on Thursday, May 7. That request will include the following information, which we received from you just now:</p>
 	<ul>
 		<li><strong>Subscription Status</strong>: <?php echo $atlantic_status; ?></li>
 		<?php if ($atlantic_status == 'existing') { ?>
