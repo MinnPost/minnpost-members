@@ -111,6 +111,23 @@ $minnpost-gold: #ffd700;
 $minnpost-platinum: #e5e4e2;
 
 
+//--------------------------------------*\
+// Borders, Radii, Shadows
+//--------------------------------------*/
+
+// Border
+$base-border-color: $gray-light;
+$base-border: 1px solid $base-border-color;
+
+// Radius
+$base-border-radius: 3px;
+
+// Shadow
+//$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
+//$form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
+$form-box-shadow: none;
+$form-box-shadow-focus: none;
+
 
 // breakpoints
 $small-screen: 600px;

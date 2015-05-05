@@ -34,6 +34,25 @@
 			margin-top: 0;
 		}
 
+		select {
+			max-width: 80%;
+			margin: 0 auto 0.5em auto;
+		}
+
+		p {
+			margin-bottom: 0.5em;
+		}
+
+		small {
+			color: $gray-med;
+			display: block;
+			margin-bottom: 0.5em;
+		}
+
+		.btn {
+			clear: both;
+		}
+
 	}
 
 }
@@ -53,7 +72,17 @@
 			}
 
 			img {
-				max-height: 100px;
+				max-height: 150px;
+			}
+
+			.info {
+				float: left;
+				width: auto;
+			}
+
+			select {
+				margin-left: 0;
+				margin-right: 0;
 			}
 
 		}
