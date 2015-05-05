@@ -98,7 +98,7 @@ while ($offer = $result->fetch_assoc()) {
 	    } else if ($eligible == FALSE && $member == TRUE) {
 	    	echo '<strong>Claim as of ' . date('F j, Y', strtotime($next_partner_claim)) . '</strong>';
 	    } else if ($member == FALSE) {
-	    	echo '<a href="http://minnpost.com/support/" class="btn btn--final">Support MinnPost for eligibility</a>';
+	    	echo '<a href="http://www.minnpost.com/support/member-benefits?level=gold" class="btn btn--final">Support MinnPost for eligibility</a>';
 	    }
 
 	    if ($offer['more_info_url'] !== NULL && $offer['more_info_text'] !== NULL) {
