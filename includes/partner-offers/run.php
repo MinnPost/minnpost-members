@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 	}
 
 	if ($valid === TRUE) {
-		$sql = "UPDATE `order_instances` SET contact_id = '$contact_id', claimed='$claimed' WHERE id='$instance_id'";
+		$sql = "UPDATE `offer_instances` SET contact_id = '$contact_id', claimed='$claimed' WHERE id='$instance_id'";
 	}
 
 	if ( isset($claimed) && $valid == TRUE) {
