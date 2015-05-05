@@ -40,11 +40,16 @@ while ($offer = $result->fetch_assoc()) {
 	    echo '<h3><span class="event">' . $subtitle . '</span></h3>';
 	    echo '<h4><span class="offer">' . $offer['quantity'] . ' ' . ucwords($offer['item_type'])	 . '</span></h4>';
 	    if ($offer['instance_count'] > 1) {
+	    	$btnvalue = '';
 	    	echo '<select name="instance_id" id="instance_id">
 	    		<option value="">Select an option</option>';
 	    		$options = '';
 	    		$num = 1;
+	    		$claimed = '';
 	    		while ($instance = $instances->fetch_assoc()) {
+	    			if ($instance['claimed'] !== NULL) {
+	    				$claimed = $instance['claimed'];
+	    			}
 	    			$start = date('F j, Y', strtotime($instance['event_use_start']));
 	    			$end = date('F j, Y', strtotime($instance['event_use_end']));
 	    			if ($instance['event_use_end'] !== NULL && $instance['date_display'] !== NULL) {
@@ -69,7 +74,12 @@ while ($offer = $result->fetch_assoc()) {
 				echo $options;	    		
 	    	echo '</select>';
 	    } else if ($offer['instance_count'] == 1) {
+	    	$id = $offer['offer_id'];
+	    	$instance = "SELECT * FROM offer_instances WHERE offer_id='$id'";
 	    	$btnvalue = ' name="instance_id" value="' . $offer['instance_id'] . '"';
+	    	if ($offer['claimed'] !== NULL) {
+				$claimed = $instance['claimed'];
+			}
 	    	$start = date('F j, Y', strtotime($offer['event_use_start']));
 	    	$end = date('F j, Y', strtotime($offer['event_use_end']));
 	    	$date = '<p class="date">';
@@ -94,7 +104,11 @@ while ($offer = $result->fetch_assoc()) {
 	    }
 	    echo '<p class="actions">';
 	    if ($eligible == TRUE && $member == TRUE) {
-	    	echo '<button class="btn btn--final" type="submit"' . $btnvalue . '>Claim Offer</button>';
+	    	if ($claimed == FALSE) {
+	    		echo '<button class="btn btn--final" type="submit"' . $btnvalue . '>Claim Offer</button>';
+	    	} else {
+	    		echo '<button class="btn btn--disabled" disabled' . $btnvalue . '>All Claimed</button>';
+	    	}
 	    } else if ($eligible == FALSE && $member == TRUE) {
 	    	echo '<strong>Claim as of ' . date('F j, Y', strtotime($next_partner_claim)) . '</strong>';
 	    } else if ($member == FALSE) {

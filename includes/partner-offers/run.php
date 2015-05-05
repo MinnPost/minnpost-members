@@ -41,13 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 
 	$sql = "SELECT offers.id as offer_id, offers.event, offers.quantity, offers.item_type, offers.image_url as offer_image_url, offers.restriction, offers.more_info_text, 
 	count(offer_instances.id) as instance_count, offers.more_info_url, offers.offer_start_date, offers.offer_end_date, partners.name, partners.url, partners.image_url as partner_image_url,
-	offer_instances.id as instance_id, offer_instances.event_use_start, offer_instances.event_use_end, offer_instances.date_display
+	offer_instances.id as instance_id, offer_instances.event_use_start, offer_instances.event_use_end, offer_instances.date_display, offer_instances.claimed
 	FROM offers
 	INNER JOIN offer_instances on offers.id = offer_instances.offer_id
 	INNER JOIN partners on offers.partner_id = partners.id
-	WHERE offers.display_start_date < now() AND offers.display_end_date > now() AND offer_instances.claimed IS NULL
+	WHERE offers.display_start_date < now() AND offers.display_end_date > now()
+
 	GROUP BY offer_instances.offer_id
-	ORDER BY offers.quantity DESC, offers.display_start_date DESC, offers.offer_start_date DESC";
+	ORDER BY offer_instances.claimed ASC, offers.display_start_date DESC, offers.offer_start_date DESC";
 
 	if (!$result = $db->query($sql)) {
 	    die('There was an error running the query [' . $db->error . ']');
@@ -72,13 +73,13 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 
 	if ( isset($claimed) && $valid == TRUE) {
 		include('config.php');
-		echo $sql;
-		/*if (!$result = $db->query($sql)){
+		//echo $sql;
+		if (!$result = $db->query($sql)){
 			die('There was an error running the query [' . $db->error . ']');
 		} else {
 			// was successful
 			include('message.php');
-		}*/
+		}
 	} else {
 		include('all-offers.php');
 	}
