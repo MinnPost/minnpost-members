@@ -37,27 +37,9 @@
 	padding-left: 1em;
 }
 
-.mp .total-pledges {
-	font-size: 3em;
-	margin: 1em 0;	
-}
-.mp .total-pledges div {
-	font-size: 1.5em;
-	margin: 0 0 0.5em 0;
-	background: #ddd;
-	padding: 1em 0.25em;
-	line-height: normal;
-}
+
 
 .mp .offscreen {
 	position: absolute;
 	left: -9999em;
-}
-
-
-@media (max-width: 600px) {
-	.mp .total-pledges {
-		font-size: 2.5em;
-		text-align: center;
-	}
 }
