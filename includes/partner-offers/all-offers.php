@@ -110,7 +110,7 @@ while ($offer = $result->fetch_assoc()) {
 	    		echo '<button class="btn btn--disabled" disabled' . $btnvalue . '>All Claimed</button>';
 	    	}
 	    } else if ($eligible == FALSE && $member == TRUE) {
-	    	echo '<strong>Claim as of ' . date('F j, Y', strtotime($next_partner_claim)) . '</strong>';
+	    	echo '<strong>You may not claim another partner offer until ' . date('F j, Y', strtotime($next_partner_claim)) . '</strong>';
 	    } else if ($member == FALSE) {
 	    	echo '<a href="http://www.minnpost.com/support/member-benefits?level=gold" class="btn btn--final">Support MinnPost for eligibility</a>';
 	    }
