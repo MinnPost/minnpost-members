@@ -68,29 +68,51 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 	}
 
 	if ($valid === TRUE) {
-		$sql = "UPDATE `offer_instances` SET contact_id = '$contact_id', claimed='$claimed' WHERE id='$instance_id'";
-	}
-
-	if ( isset($claimed) && $valid == TRUE) {
-		include('config.php');
-		//echo $sql;
-		if (!$result = $db->query($sql)){
+		$select_sql = "SELECT claimed FROM `offer_instances` WHERE id='$instance_id'";
+		if (!$select = $db->query($select_sql)) {
 			die('There was an error running the query [' . $db->error . ']');
 		} else {
-			// was successful
-			$claimed_sql = "SELECT offers.id as offer_id, offers.event, offers.quantity, offers.item_type, offers.image_url as offer_image_url, offers.restriction, offers.more_info_text, 
-			count(offer_instances.id) as instance_count, offers.more_info_url, offers.offer_start_date, offers.offer_end_date, partners.name, partners.url, partners.image_url as partner_image_url,
-			offer_instances.id as instance_id, offer_instances.event_use_start, offer_instances.event_use_end, offer_instances.date_display, offer_instances.claimed
-			FROM offer_instances
-			INNER JOIN offers on offer_instances.offer_id = offers.id
-			INNER JOIN partners on offers.partner_id = partners.id
-			WHERE offer_instances.id='$instance_id'";
-			if (!$claimed_result = $db->query($claimed_sql)){
-				die('There was an error running the query [' . $db->error . ']');
+			$check = $select->fetch_assoc();
+			if ($check['claimed'] == NULL) {
+				$sql = "UPDATE `offer_instances` SET contact_id = '$contact_id', claimed='$claimed' WHERE id='$instance_id'";
 			} else {
-				$claimed = $claimed_result->fetch_assoc();
+				$sql = '';
+				$success = FALSE;
+				$contactsql = "SELECT contact_id FROM `partner_offer_contacts` WHERE id='$contact_id'";
+				if (!$contactselect = $db->query($contactsql)) {
+					die('There was an error running the query [' . $db->error . ']');
+				} else {
+					$contact = $contactselect->fetch_assoc();
+					$salesforce_id = $contact['contact_id'];
+				}
 				include('message.php');
 			}
+		}
+
+		if ( isset($claimed) && $sql !== '') {
+			include('config.php');
+			//echo $sql;
+			if (!$result = $db->query($sql)){
+				die('There was an error running the query [' . $db->error . ']');
+			} else {
+				// was successful
+				$claimed_sql = "SELECT offers.id as offer_id, offers.event, offers.quantity, offers.item_type, offers.image_url as offer_image_url, offers.restriction, offers.more_info_text, 
+				count(offer_instances.id) as instance_count, offers.more_info_url, offers.offer_start_date, offers.offer_end_date, partners.name, partners.url, partners.image_url as partner_image_url,
+				offer_instances.id as instance_id, offer_instances.event_use_start, offer_instances.event_use_end, offer_instances.date_display, offer_instances.claimed
+				FROM offer_instances
+				INNER JOIN offers on offer_instances.offer_id = offers.id
+				INNER JOIN partners on offers.partner_id = partners.id
+				WHERE offer_instances.id='$instance_id'";
+				if (!$claimed_result = $db->query($claimed_sql)){
+					die('There was an error running the query [' . $db->error . ']');
+				} else {
+					$success = TRUE;
+					$claimed = $claimed_result->fetch_assoc();
+					include('message.php');
+				}
+			}
+		} else if ($sql !== '') {
+			include('all-offers.php');
 		}
 	} else {
 		include('all-offers.php');
