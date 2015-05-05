@@ -22,7 +22,7 @@ while ($offer = $result->fetch_assoc()) {
 
     if ($offer['instance_count'] > 1) {
     	// get the dates and date display option here.
-    	$id = $offer['id'];
+    	$id = $offer['offer_id'];
     	$get_instances = "SELECT * FROM offer_instances WHERE offer_id='$id' ORDER BY event_use_start, event_use_end";
     	if (!$instances = $db->query($get_instances)) {
 	        die('There was an error running the query [' . $db->error . ']');
