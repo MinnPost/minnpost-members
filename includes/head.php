@@ -7,7 +7,7 @@
 <!--[if gt IE 9]><!--> <html class="no-js" lang="en" xmlns:og="http://opengraphprotocol.org/schema/"> <!--<![endif]-->
 
 <head>
-<title>MinnPost | Atlantic Subscription Address</title>
+<title>MinnPost | <?php echo $title; ?></title>
 <link rel="shortcut icon" href="//www.minnpost.com/sites/default/themes/siteskin/favicon.ico" type="image/x-icon" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
