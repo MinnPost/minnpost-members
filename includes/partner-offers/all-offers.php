@@ -116,7 +116,7 @@ while ($offer = $result->fetch_assoc()) {
 	    }
 
 	    if ($offer['more_info_url'] !== NULL && $offer['more_info_text'] !== NULL) {
-	    	echo ' or <a href="' . $offer['more_info_url'] . '">' . $offer['more_info_text'] . '</a>';
+	    	echo '<div><a href="' . $offer['more_info_url'] . '">' . $offer['more_info_text'] . '</a></div>';
 	    }
 
 	    echo '</p>';
