@@ -96,6 +96,9 @@ while ($offer = $result->fetch_assoc()) {
 			} else {
 				$date .= $start;
 			}
+			if ($start == $end) {
+				$date = $start;
+			}
 			$date .= '</p>';
 	    	echo '<p>' . $date . '</p>';
 	    }
