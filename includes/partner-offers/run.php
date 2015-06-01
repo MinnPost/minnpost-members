@@ -98,7 +98,7 @@ if ($exists === TRUE) {
 				} else {
 					// was successful
 					$claimed_sql = "SELECT offers.id as offer_id, offers.event, offers.quantity, offers.item_type, offers.image_url as offer_image_url, offers.restriction, offers.more_info_text, 
-					count(offer_instances.id) as instance_count, offers.more_info_url, offers.offer_start_date, offers.offer_end_date, partners.name, partners.url, partners.image_url as partner_image_url,
+					count(offer_instances.id) as instance_count, offers.more_info_url, offers.offer_start_date as offer_start_date, offers.offer_end_date, partners.name, partners.url, partners.image_url as partner_image_url,
 					offer_instances.id as instance_id, offer_instances.event_use_start, offer_instances.event_use_end, offer_instances.date_display, offer_instances.claimed
 					FROM offer_instances
 					INNER JOIN offers on offer_instances.offer_id = offers.id
