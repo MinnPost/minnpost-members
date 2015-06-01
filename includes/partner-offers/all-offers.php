@@ -41,38 +41,62 @@ while ($offer = $result->fetch_assoc()) {
 	    echo '<h4><span class="offer">' . $offer['quantity'] . ' ' . ucwords($offer['item_type'])	 . '</span></h4>';
 	    if ($offer['instance_count'] > 1) {
 	    	$btnvalue = '';
-	    	echo '<select name="instance_id" id="instance_id">
-	    		<option value="">Select an option</option>';
-	    		$options = '';
-	    		$num = 1;
-	    		$claimed = '';
-	    		while ($instance = $instances->fetch_assoc()) {
-	    			if ($instance['claimed'] !== NULL) {
-	    				$claimed = $instance['claimed'];
-	    			}
-	    			$start = date('F j, Y', strtotime($instance['event_use_start']));
+			$options = '';
+    		$num = 1;
+    		$claimed = FALSE;
+    		while ($instance = $instances->fetch_assoc()) {
+    			// date based
+    			if ($instance['event_use_start'] !== NULL) {
+    				$start = date('F j, Y', strtotime($instance['event_use_start']));
 	    			$end = date('F j, Y', strtotime($instance['event_use_end']));
-	    			if ($instance['event_use_end'] !== NULL && $instance['date_display'] !== NULL) {
-	    				if ($instance['date_display'] == 'all') {
-	    					$options .= '<option value="' . $instance['id'] . '">' . $start . ' - ' . $end . '</option>';
-	    				} else if ($instance['date_display'] == 'startend' && $num == 1) {
-	    					$options .= '<option value="' . $instance['id'] . '">' . $start . ' - ';
-	    				} else if ($instance['date_display'] == 'startend' && $num == $offer['instance_count']) {
-	    					$options .= $end . '</option>';
-	    				} else if ($instance['date_display'] == 'start' && $num == 1) {
-	    					$options .= '<option value="' . $instance['id'] . '">' . $start . '</option>';
-	    				} else if ($instance['date_display'] == 'end' && $num == $offer['instance_count']) {
-	    					$options .= '<option value="' . $instance['id'] . '">' . $end . '</option>';
-	    				}
-	    			} else if ($instance['event_use_end'] !== NULL) {
-	    				$options .= '<option value="' . $instance['id'] . '">' . $start . ' - ' . $end . '</option>';
+
+    				$date_based = TRUE;
+    				
+	    			if ($instance['claimed'] == NULL) {
+	    				$claimed = FALSE;
+		    			if ($instance['event_use_end'] !== NULL && $instance['date_display'] !== NULL) {
+		    				if ($instance['date_display'] == 'all') {
+		    					$options .= '<option value="' . $instance['id'] . '">' . $start . ' - ' . $end . '</option>';
+		    				} else if ($instance['date_display'] == 'startend' && $num == 1) {
+		    					$options .= '<option value="' . $instance['id'] . '">' . $start . ' - ';
+		    				} else if ($instance['date_display'] == 'startend' && $num == $offer['instance_count']) {
+		    					$options .= $end . '</option>';
+		    				} else if ($instance['date_display'] == 'start' && $num == 1) {
+		    					$options .= '<option value="' . $instance['id'] . '">' . $start . '</option>';
+		    				} else if ($instance['date_display'] == 'end' && $num == $offer['instance_count']) {
+		    					$options .= '<option value="' . $instance['id'] . '">' . $end . '</option>';
+		    				}
+		    			} else if ($instance['event_use_end'] !== NULL) {
+		    				$options .= '<option value="' . $instance['id'] . '">' . $start . ' - ' . $end . '</option>';
+		    			} else {
+		    				$options .= '<option value="' . $instance['id'] . '">' . $start . '</option>';
+		    			}
+
+		    		} else {
+		    			$claimed = TRUE;
+		    		}
+    			// just choose until they are gone
+    			} else {
+    				$date_based = FALSE;
+    				if ($instance['claimed'] === NULL) {
+	    				$claimed = FALSE;
+	    				$btnvalue = ' name="instance_id" value="' . $instance['id'] . '"';
+	    				break;
 	    			} else {
-	    				$options .= '<option value="' . $instance['id'] . '">' . $start . '</option>';
+	    				$claimed = TRUE;
 	    			}
-	    			$num++;
-	    		}
-				echo $options;	    		
-	    	echo '</select>';
+    			}
+    			
+    			$num++;
+    		}
+
+    		if ($date_based == TRUE) {
+    			echo '<select name="instance_id" id="instance_id">
+    				<option value="">Select an option</option>';
+    				echo $options;	    		
+    			echo '</select>';
+    		}
+
 	    } else if ($offer['instance_count'] == 1) {
 	    	$id = $offer['offer_id'];
 	    	$instance = "SELECT * FROM offer_instances WHERE offer_id='$id'";
@@ -82,28 +106,30 @@ while ($offer = $result->fetch_assoc()) {
 			}
 	    	$start = date('F j, Y', strtotime($offer['event_use_start']));
 	    	$end = date('F j, Y', strtotime($offer['event_use_end']));
-	    	$date = '<p class="date">';
-	    	if ($offer['event_use_end'] !== NULL && $offer['date_display'] !== NULL) {
-				if ($offer['date_display'] == 'all') {
+	    	if ($offer['event_use_start'] != NULL && $offer['event_use_end'] != NULL) {
+		    	$date = '<p class="date">';
+		    	if ($offer['event_use_end'] !== NULL && $offer['date_display'] !== NULL) {
+					if ($offer['date_display'] == 'all') {
+						$date .= $start . ' - ' . $end;
+					} else if ($offer['date_display'] == 'start') {
+						$date .= $start;
+					} else if ($offer['date_display'] == 'end') {
+						$date .= $end;
+					}
+				} else if ($offer['event_use_end'] !== NULL) {
 					$date .= $start . ' - ' . $end;
-				} else if ($offer['date_display'] == 'start') {
+				} else {
 					$date .= $start;
-				} else if ($offer['date_display'] == 'end') {
-					$date .= $end;
 				}
-			} else if ($offer['event_use_end'] !== NULL) {
-				$date .= $start . ' - ' . $end;
-			} else {
-				$date .= $start;
-			}
-			if ($start == $end) {
-				$date = $start;
-			}
-			$date .= '</p>';
-	    	echo '<p>' . $date . '</p>';
+				if ($start == $end) {
+					$date = $start;
+				}
+				$date .= '</p>';
+		    	echo $date;
+	    	}
 	    }
 	    if ($offer['restriction'] !== NULL) {
-	    	echo '<small class="restriction">' . $offer['restriction'] . '</small>';
+	    	echo '<p class="restriction">' . $offer['restriction'] . '</p>';
 	    }
 	    echo '<p class="actions">';
 	    if ($eligible == TRUE && $member == TRUE) {
