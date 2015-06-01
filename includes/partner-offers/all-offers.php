@@ -134,7 +134,11 @@ while ($offer = $result->fetch_assoc()) {
 	    echo '<p class="actions">';
 	    if ($eligible == TRUE && $member == TRUE) {
 	    	if ($claimed == FALSE) {
-	    		echo '<button class="btn btn--final" type="submit"' . $btnvalue . '>Claim Offer</button>';
+	    		if (strtotime($offer['offer_start_date']) <= strtotime('now')) {
+	    			echo '<button class="btn btn--final" type="submit"' . $btnvalue . '>Claim Offer</button>';
+	    		} else {
+	    			echo '<p class="alert"><strong>Available ' . date('F j, Y, g:i a', strtotime($offer['offer_start_date'])) . '</strong></p>';
+	    		}
 	    	} else {
 	    		echo '<button class="btn btn--disabled" disabled' . $btnvalue . '>All Claimed</button>';
 	    	}
