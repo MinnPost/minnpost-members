@@ -29,7 +29,7 @@ if ($id !== '') {
 
 include('eligibility.php');
 
-if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+if ($_SERVER['REQUEST_METHOD'] != 'POST' && $eligible === TRUE) {
 	$account_id = $account['account_id'];
 	$email = $account['email'];
 	$first_name = $account['first_name'];
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 
 	}
 
-} else {
+} else if ($eligible === TRUE) {
 	$valid = TRUE;
 	$instance_id = filter_var($_POST['instance_id'], FILTER_SANITIZE_STRING);
 	$contact_id = filter_var($_POST['contact_id'], FILTER_SANITIZE_STRING);
@@ -117,6 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 	} else {
 		include('all-offers.php');
 	}
+} else {
+	include('ineligible.php');
 }
 
 ?>
