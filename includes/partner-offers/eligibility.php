@@ -2,7 +2,11 @@
 
 // check to see if user is eligible to claim anything
 $local_id = $account['id'];
+if ($_POST['contact_id']) {
+	$local_id = $_POST['contact_id'];
+}
 if ($local_id) {
+	$exists = TRUE;
 	$user_claim_limit = "SELECT * FROM offer_instances WHERE contact_id='$local_id' AND claimed BETWEEN DATE_SUB(NOW(), INTERVAL $eligibility_period_mysql) AND NOW() ORDER BY claimed DESC";
 	$claim_result = $db->query($user_claim_limit);
 	$user_ineligible = $claim_result->num_rows;
@@ -15,4 +19,6 @@ if ($local_id) {
 	} else {
 		$eligible = TRUE;
 	}
+} else {
+	$exists = FALSE;
 }
