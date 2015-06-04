@@ -21,7 +21,7 @@
 
   <header class="minnpost-page-container">
         <a href="http://members.minnpost.com" class="logo clearfix">
-            <img src="http://www.minnpost.com/sites/default/themes/siteskin/inc/images/logo.png" alt="MinnPost">
+            <img src="//www.minnpost.com/sites/default/themes/siteskin/inc/images/logo.png" alt="MinnPost">
         </a>
     </header>
 
