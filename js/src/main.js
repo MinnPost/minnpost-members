@@ -45,6 +45,21 @@ function getFullAddress() {
 
 }
 
+function showOfferDetails() {
+	if ($('.partner-offers li').length > 0) {
+		$('.partner-offers li .details').hide();
+		$('.partner-offers li').each(function() {
+			var that = $(this);
+			if ( $('.expand', $(this)).length > 0) {
+				$('.expand', $(this)).click(function() {
+					$('.details', that).toggle();
+					return false;
+				});
+			}
+		});
+	}
+}
+
 /*$(function() {
 	if (google.hasOwnProperty('maps')) {
 		getFullAddress();
@@ -61,7 +76,7 @@ $(document).ready(function() {
 	});
 
 	var atlantic_id = $('#atlantic_id').val();
-	if(atlantic_id.length > 0) {
+	if(typeof atlantic_id !== 'undefined') {
 		//alert('test');
 		existingSubscription('existing');
 	} else {
@@ -71,5 +86,7 @@ $(document).ready(function() {
 		var status = $('input[name=atlantic_status]:checked', 'form').val();
 		existingSubscription(status);
 	});
+
+	showOfferDetails();
 
 });

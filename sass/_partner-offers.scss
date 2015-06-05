@@ -1,7 +1,7 @@
 .mp .partner-offers {
 	margin-left: 0;
 
-	li {
+	> li {
 		border: 1px solid $gray-lightest;
 		list-style: none;
 		margin-bottom: 1em;
@@ -39,8 +39,22 @@
 			margin: 0 auto 0.5em auto;
 		}
 
-		p {
+		p, .details {
 			margin-bottom: 0.5em;
+		}
+
+		.details {
+			border: 1px solid $gray-light;
+			background: lighten($gray-lightest, 10%);
+			padding: 0.25em;
+			ol {
+				margin-left: 0;
+			}
+		}
+		ol li {
+			list-style: none;
+			font-size: 85%;
+			padding: 0;
 		}
 
 		small {
