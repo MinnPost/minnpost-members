@@ -48,6 +48,9 @@ while ($offer = $result->fetch_assoc()) {
     			// date based
     			if ($instance['event_use_start'] !== NULL) {
     				$start = date('F j, Y', strtotime($instance['event_use_start']));
+    				if ($instance['time_display'] == 1) {
+			    		$start = date('F j, Y @ g:ia', strtotime($instance['event_use_start']));
+			    	}
 	    			$end = date('F j, Y', strtotime($instance['event_use_end']));
 
     				$date_based = TRUE;
@@ -106,6 +109,9 @@ while ($offer = $result->fetch_assoc()) {
 			}
 	    	$start = date('F j, Y', strtotime($offer['event_use_start']));
 	    	$end = date('F j, Y', strtotime($offer['event_use_end']));
+	    	if ($offer['time_display'] == 1) {
+	    		$start = date('F j, Y @ g:ia', strtotime($offer['event_use_start']));
+	    	}
 	    	if ($offer['event_use_start'] != NULL && $offer['event_use_end'] != NULL) {
 		    	$date = '<p class="date">';
 		    	if ($offer['event_use_end'] !== NULL && $offer['date_display'] !== NULL) {
