@@ -94,7 +94,7 @@ while ($offer = $result->fetch_assoc()) {
     		}
 
     		if ($date_based == TRUE) {
-    			echo '<select name="instance_id" id="instance_id">
+    			echo '<select name="instance_id_select" id="instance_id_select">
     				<option value="">Select an option</option>';
     				echo $options;	    		
     			echo '</select>';

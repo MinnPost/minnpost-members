@@ -79,7 +79,11 @@ if ($exists === TRUE) {
 
 	} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$valid = TRUE;
-		$instance_id = filter_var($_POST['instance_id'], FILTER_SANITIZE_STRING);
+		if (isset($_POST['instance_id'])) {
+			$instance_id = filter_var($_POST['instance_id'], FILTER_SANITIZE_STRING);
+		} else if (isset($_POST['instance_id_select'])) {
+			$instance_id = filter_var($_POST['instance_id_select'], FILTER_SANITIZE_STRING);
+		}
 		$contact_id = filter_var($_POST['contact_id'], FILTER_SANITIZE_STRING);
 		$claimed = date('Y-m-d H:i:s');
 
