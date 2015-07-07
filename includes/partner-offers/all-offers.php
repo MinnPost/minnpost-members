@@ -23,7 +23,7 @@ while ($offer = $result->fetch_assoc()) {
     if ($offer['instance_count'] > 1) {
     	// get the dates and date display option here.
     	$id = $offer['offer_id'];
-    	$get_instances = "SELECT * FROM offer_instances WHERE offer_id='$id' ORDER BY event_use_start, event_use_end";
+    	$get_instances = "SELECT * FROM offer_instances WHERE offer_id='$id' ORDER BY claimed DESC, event_use_start, event_use_end";
     	if (!$instances = $db->query($get_instances)) {
 	        die('There was an error running the query [' . $db->error . ']');
 	    }
@@ -91,7 +91,7 @@ while ($offer = $result->fetch_assoc()) {
     			}
     			
     			$num++;
-    		}
+    		} // while loop ends
 
     		if ($date_based == TRUE) {
     			echo '<select name="instance_id_select" id="instance_id_select">
@@ -146,7 +146,7 @@ while ($offer = $result->fetch_assoc()) {
 	    		if (strtotime($offer['offer_start_date']) <= strtotime('now')) {
 	    			echo '<button class="btn btn--final" type="submit"' . $btnvalue . '>Claim Offer</button>';
 	    		} else {
-	    			echo '<p class="alert"><strong>Available ' . date('F j, Y', strtotime($offer['offer_start_date'])) . '</strong></p>';
+	    			echo '<p class="alert"><strong>Available ' . date('F j, Y @ g:ia', strtotime($offer['offer_start_date'])) . '</strong></p>';
 	    		}
 	    	} else {
 	    		echo '<button class="btn btn--disabled" disabled' . $btnvalue . '>All Claimed</button>';
