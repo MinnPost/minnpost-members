@@ -6,7 +6,7 @@ if ($_POST['contact_id']) {
 	$local_id = $_POST['contact_id'];
 }
 if (isset($_GET['debug']) && $_GET['debug'] === 'true') {
-	$local_id = 123456789;
+	$local_id = rand();
 }
 if ($local_id) {
 	$exists = TRUE;
