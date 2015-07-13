@@ -45,7 +45,7 @@ if ($exists === TRUE) {
 		}
 
 		$sql = "SELECT offers.id as offer_id, offers.event, offers.quantity, offers.item_type, offers.image_url as offer_image_url, offers.restriction, offers.restriction_details, offers.more_info_text, 
-		count(offer_instances.id) as instance_count, offers.more_info_url, offers.offer_start_date, offers.offer_end_date, partners.name, partners.url, partners.image_url as partner_image_url,
+		count(offer_instances.id) as instance_count, (SELECT COUNT(*) FROM offer_instances WHERE claimed IS NULL AND offer_id = offers.id) as available_instance_count, offers.more_info_url, offers.offer_start_date, offers.offer_end_date, partners.name, partners.url, partners.image_url as partner_image_url,
 		offer_instances.id as instance_id, offer_instances.event_use_start, offer_instances.event_use_end, offer_instances.date_display, offer_instances.claimed
 		FROM offers
 		INNER JOIN offer_instances on offers.id = offer_instances.offer_id
@@ -53,13 +53,13 @@ if ($exists === TRUE) {
 		WHERE offers.display_start_date < now() AND offers.display_end_date > now()
 
 		GROUP BY offer_instances.offer_id
-		ORDER BY offer_instances.claimed ASC, offers.display_start_date DESC, offers.offer_start_date DESC";
+		ORDER BY available_instance_count DESC, offers.display_start_date DESC, offers.offer_start_date DESC";
 
 		if (isset($_GET['debug']) && $_GET['debug'] === 'true') {
 			$now = date('Y-m-d H:i:s', strtotime('last day of this month'));
 
 			$sql = "SELECT offers.id as offer_id, offers.event, offers.quantity, offers.item_type, offers.image_url as offer_image_url, offers.restriction, offers.restriction_details, offers.more_info_text, 
-			count(offer_instances.id) as instance_count, offers.more_info_url, offers.offer_start_date, offers.offer_end_date, partners.name, partners.url, partners.image_url as partner_image_url,
+			count(offer_instances.id) as instance_count, (SELECT COUNT(*) FROM offer_instances WHERE claimed IS NULL AND offer_id = offers.id) as available_instance_count, offers.more_info_url, offers.offer_start_date, offers.offer_end_date, partners.name, partners.url, partners.image_url as partner_image_url,
 			offer_instances.id as instance_id, offer_instances.event_use_start, offer_instances.event_use_end, offer_instances.date_display, offer_instances.claimed
 			FROM offers
 			INNER JOIN offer_instances on offers.id = offer_instances.offer_id
@@ -67,7 +67,7 @@ if ($exists === TRUE) {
 			WHERE offers.display_start_date < '$now' AND offers.display_end_date > '$now'
 
 			GROUP BY offer_instances.offer_id
-			ORDER BY offer_instances.claimed ASC, offers.display_start_date DESC, offers.offer_start_date DESC";
+			ORDER BY available_instance_count DESC, offers.display_start_date DESC, offers.offer_start_date DESC";
 		}
 
 		if (!$result = $db->query($sql)) {
