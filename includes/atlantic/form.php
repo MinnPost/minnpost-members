@@ -1,16 +1,29 @@
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <p class="large">You are entitled to a 1-year subscription to The Atlantic as a MinnPost Member. Submit this form to receive it.</p>
     <input type="hidden" value="<?php echo $account['salesforce_id']; ?>" name="id" id="id">
+
+    <p class="large">You are entitled to a 1-year subscription to The Atlantic as a MinnPost Member. Submit this form to receive it.</p>
+    
+    <?php if ($show_swag === TRUE) { ?>
+    <fieldset class="benefit-option swag-type">
+        <label><input type="radio" name="swag_status" id="swag_mug" value="new" <?php if ($swag_status == 'mug') { ?> checked="checked"<?php } ?>> Mug</label>
+        <label><input type="radio" name="swag_status" id="swag_bottle" value="new" <?php if ($swag_status == 'bottle') { ?> checked="checked"<?php } ?>> Water bottle</label>
+        <label><input type="radio" name="swag_status" id="swag_declined" value="declined" <?php if ($swag_status === 'declined') { ?> checked="checked"<?php } ?>> Decline these items</label>
+    </fieldset>
+    <?php } ?>
+
+    <?php if ($show_atlantic === TRUE) { ?>
     <fieldset class="benefit-option subscription-type">
         <label><input type="radio" name="atlantic_status" id="atlantic_new" value="new" <?php if ($atlantic_status == 'new') { ?> checked="checked"<?php } ?>> Start a new subscription</label>
-        <label><input type="radio" name="atlantic_status" id="atlantic_existing" value="existing" id="existing-subscription"<?php if ($atlantic_status === 'existing') { ?> checked="checked"<?php } ?>> Extend an existing subscription</label>
+        <label><input type="radio" name="atlantic_status" id="atlantic_existing" value="existing" <?php if ($atlantic_status === 'existing') { ?> checked="checked"<?php } ?>> Extend an existing subscription</label>
         <div class="form-item atlantic_id">
             <label>Existing Subscription ID
               <input type="text" autocapitalize="off" autocorrect="off" name="atlantic_id" id="atlantic_id" value="<?php echo $atlantic_id; ?>">
             </label>
         </div>
-        <label><input type="radio" name="atlantic_status" id="atlantic_existing" value="declined" <?php if ($atlantic_status === 'declined') { ?> checked="checked"<?php } ?>> Decline this item</label>
+        <label><input type="radio" name="atlantic_status" id="atlantic_declined" value="declined" <?php if ($atlantic_status === 'declined') { ?> checked="checked"<?php } ?>> Decline this item</label>
     </fieldset>
+    <?php } ?>
+
     <fieldset class="form-section account-info" data-geo="data-geo">
         <h3 class="component-label">Please Verify Your MinnPost Membership Information</h3>
         <div class="form-item">
