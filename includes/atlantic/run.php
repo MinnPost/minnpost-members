@@ -68,8 +68,34 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') { // form has not been s
 } else { // form has been submitted
 	$valid = TRUE;
 
-	$sql = "UPDATE `{$table}` SET accepted = 1";
-	
+	$sql = "UPDATE `{$table}` SET";
+
+	$atlantic_status = filter_var($_POST['atlantic_status'], FILTER_SANITIZE_STRING); // allow for declined here
+	$swag_status = filter_var($_POST['swag_status'], FILTER_SANITIZE_STRING); // allow for declined here
+
+	if ( (!isset($atlantic_status) && !isset($swag_status)) || ( !in_array($member_level, $swag_levels) && !in_array($member_level, $atlantic_levels) ) ) {
+		// they didn't submit anything or they don't qualify
+		$valid = FALSE;
+	}
+
+	if ($atlantic_status !== 'declined') { // they've accepted the atlantic
+		$sql .= " atlantic_accepted = 1";
+	}
+
+	if ($swag_status !== 'declined') { // they've accepted a swag item
+		$sql .= ", swag_accepted = 1";
+	}
+
+	$sql .= ", atlantic_status = '$atlantic_status', swag_status = '$swag_status'";
+
+	if ($atlantic_status == 'existing') {
+		$atlantic_id = filter_var($_POST['atlantic_id'], FILTER_SANITIZE_STRING);
+		$sql .= ", atlantic_id = '$atlantic_id'";
+	} else if ($atlantic_status == 'new') {
+		$sql .= ", atlantic_id = ''";
+	}
+
+	// email
 	$email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     	$valid = FALSE;
@@ -112,19 +138,6 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') { // form has not been s
 		$changed = 0;
 	}
 	$sql .= ", address_changed = '$changed'";
-
-	$atlantic_status = filter_var($_POST['atlantic_status'], FILTER_SANITIZE_STRING);
-	if (!isset($atlantic_status)) {
-		$valid = FALSE;
-	}
-	$sql .= ", atlantic_status = '$atlantic_status'";
-
-	if ($atlantic_status == 'existing') {
-		$atlantic_id = filter_var($_POST['atlantic_id'], FILTER_SANITIZE_STRING);
-		$sql .= ", atlantic_id = '$atlantic_id'";
-	} else if ($atlantic_status == 'new') {
-		$sql .= ", atlantic_id = ''";
-	}
 
 	// do they have a separate shipping address?
 	$use_different_address = filter_var($_POST['use_different_address'], FILTER_SANITIZE_STRING);
