@@ -4,6 +4,8 @@
 
     <?php if ($show_swag === TRUE) { ?>
     <p class="large">As a MinnPost member, you are entitled to a MinnPost mug or water bottle<?php if ($show_atlantic === TRUE) { ?> AND a one-year subscription to the Atlantic<?php } ?>. Use this form to make your choices.</p>
+    <?php } else { ?>
+    <p class="large">MinnPost members at Silver level or above are entitled to a MinnPost mug or water bottle, and those at Gold or above are entitled to a one-year subscription to the Atlantic. <a href="https://www.minnpost.com/support/member-benefits">Learn more about this</a>.</p>
     <?php } ?>
     
     <?php if ($show_swag === TRUE) { ?>
@@ -76,14 +78,14 @@
 
         <div class="form-item">
             <label>
-                <input type="checkbox" value="1" name="use_different_address" id="use_different_address"> Use a different name/address for your subscription
+                <input type="checkbox" value="1" name="use_different_address" id="use_different_address"> Use a different name/address for your gifts
             </label>
         </div>
 
     </fieldset>
 
     <fieldset class="form-section shipping_address" data-geo="data-shipping-geo">
-        <h3 class="component-label">Send Subscription to</h3>
+        <h3 class="component-label">Send gifts to</h3>
         <div class="form-item">
             <label>Name
               <input type="text" autocapitalize="off" autocorrect="off" value="<?php echo $shipping_name; ?>" name="shipping_name" id="shipping_name">
@@ -124,6 +126,6 @@
 
     </fieldset>
 
-    <button class="button primary" type="submit">Submit Atlantic subscription request</button>
+    <button class="button primary" type="submit">Submit your choices</button>
 
 </form>
