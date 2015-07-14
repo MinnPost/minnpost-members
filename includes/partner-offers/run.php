@@ -9,6 +9,7 @@ if (isset($_GET['id'])) {
 	$id = '';
 }
 if (isset($_GET['debug']) && $_GET['debug'] === 'true') {
+	echo '<p>Time right now is ' . date('F j, Y @ g:ia') . '</p>';
 	echo '<p>Loading user with id of ' . $id. '</p>';
 }
 
