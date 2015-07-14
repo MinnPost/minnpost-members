@@ -11,13 +11,13 @@
     <?php if ($show_swag === TRUE) { ?>
     <fieldset class="benefit-option swag-type">
         <label>
-            <input type="radio" name="swag_status" id="swag_mug" value="new" <?php if ($swag_status == 'mug') { ?> checked="checked"<?php } ?>>
+            <input type="radio" name="swag_status" id="swag_mug" value="mug" <?php if ($swag_status == 'mug') { ?> checked="checked"<?php } ?>>
             <div>
                 <img src="//members.minnpost.com/givalike/images/mug.png" alt="Coffee Mug">
             </div>
         </label>
         <label>
-            <input type="radio" name="swag_status" id="swag_bottle" value="new" <?php if ($swag_status == 'bottle') { ?> checked="checked"<?php } ?>>
+            <input type="radio" name="swag_status" id="swag_bottle" value="bottle" <?php if ($swag_status == 'bottle') { ?> checked="checked"<?php } ?>>
             <div>
                 <img src="//members.minnpost.com/givalike/images/waterbottle.png" alt="Water Bottle">
             </div>

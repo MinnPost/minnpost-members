@@ -19,6 +19,7 @@ if ($id !== '') {
     } else {
         $account = $result->fetch_assoc();
         $previously_changed = $account['address_changed'];
+        $member_level = $account['member_level'];
     }
     if ($_GET['debug'] === 'true') {
     	print_r($account);
@@ -36,8 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') { // form has not been s
 	$zip = $account['zip'];
 
 	$full_address = $street . ', ' . $city . ', ' . $state . ' ' . $zip;
-
-	$member_level = $account['member_level'];
 
 	$atlantic_status = $account['atlantic_status'];
 	$swag_status = $account['swag_status'];
