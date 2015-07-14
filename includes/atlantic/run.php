@@ -25,8 +25,9 @@ if ($id !== '') {
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') {
+if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') { // form has not been submitted
 
+	// load data from database
 	$email = $account['email'];
 	$name = $account['name'];
 	$street = $account['street'];
@@ -41,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') {
 	$atlantic_status = $account['atlantic_status'];
 	$swag_status = $account['swag_status'];
 
+	// we don't know anything about their atlantic status. give them a default value of new in the form
 	if (!isset($account['atlantic_status'])) {
     	$atlantic_status = 'new';
     }
@@ -63,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') {
 
 	include('form.php');
 	
-} else {
+} else { // form has been submitted
 	$valid = TRUE;
 
 	$sql = "UPDATE `{$table}` SET accepted = 1";
@@ -73,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') {
     	$valid = FALSE;
 	}
 
+	// name and address fields
 	$name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
 	$street = filter_var($_POST['street'], FILTER_SANITIZE_STRING);
 	$city = filter_var($_POST['city'], FILTER_SANITIZE_STRING);
@@ -84,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') {
 	$address_type = filter_var($_POST['address_type'], FILTER_SANITIZE_STRING);
 	$sql .= ", address_type = '$address_type'";
 
+	// did they change their address?
 	if ($previously_changed == 1 || $account['email'] != $email || $account['name'] != $name || $account['street'] != $street || $account['city'] != $city || $account['state'] != $state || $account['zip'] != $zip) {
 		$changed = 1;
 		if ($account['email'] != $email) {
@@ -122,6 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') {
 		$sql .= ", atlantic_id = ''";
 	}
 
+	// do they have a separate shipping address?
 	$use_different_address = filter_var($_POST['use_different_address'], FILTER_SANITIZE_STRING);
 	if ($use_different_address == 1) {
 
@@ -155,16 +160,16 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') {
 		}
 	}
 
+	// update the record for their salesforce id
 	$sql .= " WHERE salesforce_id = '$id'";
 
+	// only do any of this if the form is valid
 	if ( isset($email) && $valid == TRUE) {
 		include('config.php');
 		//echo $sql;
 		if(!$result = $db->query($sql)){
 			die('There was an error running the query [' . $db->error . ']');
-		} else {
-			// was successful
-		}
+		} // was successful
 
 		include('message.php');
 	} else {
