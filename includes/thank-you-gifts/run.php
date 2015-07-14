@@ -184,6 +184,12 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') { // form has not been s
 		} // was successful
 
 		include('message.php');
+		include('email.php');
+		$headers = 'From: members@minnpost.com' . "\r\n" .
+    'Reply-To: members@minnpost.com' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+		$mail = mail($email, 'MinnPost Thank You Gift Confirmation', $message, $headers);
+		echo 'mail result is ' . $mail;
 	} else {
 		include('form.php');
 	}
