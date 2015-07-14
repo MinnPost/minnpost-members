@@ -37,3 +37,7 @@
     background: #404040 none repeat scroll 0 0;
     color: #fff;
 }
+.mp fieldset.benefit-option.swag-type input:checked ~ div {
+    background: #1d70a4 none repeat scroll 0 0;
+    color: #fff;
+}
