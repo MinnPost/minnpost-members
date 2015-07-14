@@ -10,14 +10,28 @@
     
     <?php if ($show_swag === TRUE) { ?>
     <fieldset class="benefit-option swag-type">
-        <label><input type="radio" name="swag_status" id="swag_mug" value="new" <?php if ($swag_status == 'mug') { ?> checked="checked"<?php } ?>> Mug</label>
-        <label><input type="radio" name="swag_status" id="swag_bottle" value="new" <?php if ($swag_status == 'bottle') { ?> checked="checked"<?php } ?>> Water bottle</label>
-        <label><input type="radio" name="swag_status" id="swag_declined" value="declined" <?php if ($swag_status === 'declined') { ?> checked="checked"<?php } ?>> Decline these items</label>
+        <label>
+            <input type="radio" name="swag_status" id="swag_mug" value="new" <?php if ($swag_status == 'mug') { ?> checked="checked"<?php } ?>>
+            <div>
+                <img src="//members.minnpost.com/givalike/images/mug.png" alt="Coffee Mug">
+            </div>
+        </label>
+        <label>
+            <input type="radio" name="swag_status" id="swag_bottle" value="new" <?php if ($swag_status == 'bottle') { ?> checked="checked"<?php } ?>>
+            <div>
+                <img src="//members.minnpost.com/givalike/images/waterbottle.png" alt="Water Bottle">
+            </div>
+        </label>
+        <label>
+            <input type="radio" name="swag_status" id="swag_declined" value="declined" <?php if ($swag_status === 'declined') { ?> checked="checked"<?php } ?>>
+            <div>Decline these items</div>
+        </label>
     </fieldset>
     <?php } ?>
 
     <?php if ($show_atlantic === TRUE) { ?>
     <fieldset class="benefit-option subscription-type">
+        <p>Also, <strong>MinnPost Gold and Platinum</strong> members are entitled to a 1-year subscription to The Atlantic. This offer is available each year that you qualify.</p>
         <label><input type="radio" name="atlantic_status" id="atlantic_new" value="new" <?php if ($atlantic_status == 'new') { ?> checked="checked"<?php } ?>> Start a new subscription</label>
         <label><input type="radio" name="atlantic_status" id="atlantic_existing" value="existing" <?php if ($atlantic_status === 'existing') { ?> checked="checked"<?php } ?>> Extend an existing subscription</label>
         <div class="form-item atlantic_id">
