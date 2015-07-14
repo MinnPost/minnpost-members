@@ -1,0 +1,39 @@
+.mp fieldset.benefit-option {
+	margin-bottom: 1.5em;
+}
+.mp .form-item.atlantic_id {
+	margin-bottom: 0;
+}
+.mp fieldset.benefit-option.swag-type label {
+	cursor: pointer;
+    float: left;
+    height: 98px;
+    margin-right: 0.25em;
+    max-width: 100px;
+    width: 32%;
+}
+.mp fieldset.benefit-option.swag-type label input {
+    display: none;
+}
+.mp fieldset.benefit-option.swag-type label div {
+    height: 100%;
+    padding: 0.5em;
+    width: 100%;
+}
+.mp fieldset.benefit-option.swag-type label:last-of-type div {
+    padding: 0.75em;
+}
+.mp fieldset.benefit-option.swag-type label:last-of-type {
+    box-shadow: 0 0 3px 0 #7a7a7a;
+    display: block;
+    float: left;
+    font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;
+    height: 99px;
+    margin-right: 0;
+    max-width: 150px;
+    text-align: center;
+}
+.mp fieldset.benefit-option.swag-type label:hover {
+    background: #404040 none repeat scroll 0 0;
+    color: #fff;
+}
