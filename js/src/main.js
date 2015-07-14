@@ -10,8 +10,9 @@ function differentAddressForShipping(checked) {
 }
 
 function existingSubscription(status) {
-if (status === 'existing') {
-	$('.atlantic_id').show();
+	//console.log('status is ' + status);
+	if (status === 'existing') {
+		$('.atlantic_id').show();
 		$('.atlantic_id input').attr('required', 'required');
 	} else {
 		$('.atlantic_id').hide();
@@ -76,14 +77,15 @@ $(document).ready(function() {
 	});
 
 	var atlantic_id = $('#atlantic_id').val();
-	if(typeof atlantic_id !== 'undefined') {
-		//alert('test');
+	if(typeof atlantic_id !== 'undefined' && atlantic_id !== '') {
 		existingSubscription('existing');
 	} else {
 		existingSubscription('new');
 	}
+	//console.log('atlantic id is ' + atlantic_id);
 	$('form input[name=atlantic_status]').on('change', function() {
 		var status = $('input[name=atlantic_status]:checked', 'form').val();
+		//console.log('change status is ' + status);
 		existingSubscription(status);
 	});
 

@@ -1,8 +1,7 @@
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <p class="large">You are entitled to a 1-year subscription to The Atlantic as a MinnPost Member. Submit this form to receive it.</p>
-    <input type="hidden" value="1" name="accept" id="accept">
     <input type="hidden" value="<?php echo $account['salesforce_id']; ?>" name="id" id="id">
-    <fieldset class="subscription-type">
+    <fieldset class="benefit-option subscription-type">
         <label><input type="radio" name="atlantic_status" id="atlantic_new" value="new" <?php if ($atlantic_status == 'new') { ?> checked="checked"<?php } ?>> Start a new subscription</label>
         <label><input type="radio" name="atlantic_status" id="atlantic_existing" value="existing" id="existing-subscription"<?php if ($atlantic_status === 'existing') { ?> checked="checked"<?php } ?>> Extend an existing subscription</label>
         <div class="form-item atlantic_id">
@@ -10,6 +9,7 @@
               <input type="text" autocapitalize="off" autocorrect="off" name="atlantic_id" id="atlantic_id" value="<?php echo $atlantic_id; ?>">
             </label>
         </div>
+        <label><input type="radio" name="atlantic_status" id="atlantic_existing" value="declined" <?php if ($atlantic_status === 'declined') { ?> checked="checked"<?php } ?>> Decline this item</label>
     </fieldset>
     <fieldset class="form-section account-info" data-geo="data-geo">
         <h3 class="component-label">Please Verify Your MinnPost Membership Information</h3>

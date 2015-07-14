@@ -36,7 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') {
 
 	$full_address = $street . ', ' . $city . ', ' . $state . ' ' . $zip;
 
+	$member_level = $account['member_level'];
+
 	$atlantic_status = $account['atlantic_status'];
+	$swag_status = $account['swag_status'];
+
 	if (!isset($account['atlantic_status'])) {
     	$atlantic_status = 'new';
     }
@@ -44,7 +48,21 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') {
 		$atlantic_id = $account['atlantic_id'];
 	}
 
+	if (in_array($member_level, $swag_levels) && $swag_status !== 'declined') { // check level here
+		$show_swag = TRUE;
+	}
+	
+	if (in_array($member_level, $atlantic_levels) && $atlantic_status !== 'declined') { // check level here
+		$show_atlantic = TRUE;
+	}
+
+	if ($_GET['debug'] === 'true') {
+		$show_swag = TRUE;
+		$show_atlantic = TRUE;
+	}
+
 	include('form.php');
+	
 } else {
 	$valid = TRUE;
 
