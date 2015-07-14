@@ -1,7 +1,10 @@
+<h1>Thank you gifts</h1>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <input type="hidden" value="<?php echo $account['salesforce_id']; ?>" name="id" id="id">
 
-    <p class="large">You are entitled to a 1-year subscription to The Atlantic as a MinnPost Member. Submit this form to receive it.</p>
+    <?php if ($show_swag === TRUE) { ?>
+    <p class="large">As a MinnPost member, you are entitled to a MinnPost mug or water bottle<?php if ($show_atlantic === TRUE) { ?> AND a one-year subscription to the Atlantic<?php } ?>. Use this form to make your choices.</p>
+    <?php } ?>
     
     <?php if ($show_swag === TRUE) { ?>
     <fieldset class="benefit-option swag-type">
