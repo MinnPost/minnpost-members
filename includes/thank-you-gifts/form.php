@@ -17,14 +17,14 @@
             </div>
         </label>
         <label>
-            <input type="radio" name="swag_status" id="swag_bottle" value="bottle" <?php if ($swag_status == 'bottle') { ?> checked="checked"<?php } ?>>
+            <input type="radio" name="swag_status" id="swag_bottle" value="water bottle" <?php if ($swag_status == 'bottle') { ?> checked="checked"<?php } ?>>
             <div>
                 <img src="//members.minnpost.com/givalike/images/waterbottle.png" alt="Water Bottle">
             </div>
         </label>
         <label>
             <input type="radio" name="swag_status" id="swag_declined" value="declined" <?php if ($swag_status === 'declined') { ?> checked="checked"<?php } ?>>
-            <div>Decline these items</div>
+            <div>Neither</div>
         </label>
     </fieldset>
     <?php } ?>

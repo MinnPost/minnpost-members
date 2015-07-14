@@ -1,11 +1,21 @@
 <section>
 	<h3 class="component-label">Thank you for supporting MinnPost</h3>
-	<p>We will submit a subscription request to The Atlantic on your behalf on Thursday, May 7. That request will include the following information, which we received from you just now:</p>
+
+	<?php if ($swag_status !== 'declined') { ?>
+	<p>We will send your MinnPost <?php echo $swag_status; ?> to you as soon as possible.</p>
+	<?php } ?>
+
+	<?php if ($atlantic_status !== 'declined') { ?>
+	<p>We will submit a subscription request to The Atlantic on your behalf. That request will include the following information, which we received from you just now:</p>
 	<ul>
-		<li><strong>Subscription Status</strong>: <?php echo $atlantic_status; ?></li>
+		<li><strong>Atlantic Subscription Status</strong>: <?php echo $atlantic_status; ?></li>
 		<?php if ($atlantic_status == 'existing') { ?>
 		<li><strong>Atlantic Account ID</strong>: <?php echo $atlantic_id; ?></li>
 		<?php } ?>
+	</ul>
+	<?php } ?>
+
+	<ul>
 		<li><strong>Email Address</strong>: <?php echo $email; ?></li>
 		<li><strong>Names on MinnPost Membership</strong>: <?php echo $name; ?></li>
 		<li><strong>Street</strong>: <?php echo $street; ?></li>
