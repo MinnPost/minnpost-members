@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') { // form has not been s
 		$show_swag = TRUE;
 	}
 	
-	if (in_array($member_level, $atlantic_levels) && $atlantic_status !== 'declined') { // check level here
+	if (in_array($member_level, $atlantic_levels) && $atlantic_status !== 'new' && $atlantic_status !== 'existing' && $atlantic_status !== 'declined') { // check level here
 		$show_atlantic = TRUE;
 	}
 

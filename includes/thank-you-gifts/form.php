@@ -4,7 +4,7 @@
 
     <?php if ($show_swag === TRUE) { ?>
     <p class="large">As a MinnPost member, you are entitled to a MinnPost mug or water bottle<?php if ($show_atlantic === TRUE) { ?> AND a one-year subscription to the Atlantic<?php } ?>. Use this form to make your choices.</p>
-    <?php } else { ?>
+    <?php } else if ($swag_status !== 'declined') { ?>
     <p class="large">MinnPost members at Silver level or above are entitled to a MinnPost mug or water bottle, and those at Gold or above are entitled to a one-year subscription to the Atlantic. <a href="https://www.minnpost.com/support/member-benefits">Learn more about this</a>.</p>
     <?php } ?>
     
@@ -31,7 +31,7 @@
 
     <?php if ($show_atlantic === TRUE) { ?>
     <fieldset class="benefit-option subscription-type">
-        <p>Also, <strong>MinnPost Gold and Platinum</strong> members are entitled to a 1-year subscription to The Atlantic. This offer is available each year that you qualify.</p>
+        <p><?php if ($show_swag === TRUE) { ?>Also, <?php } ?><strong>MinnPost Gold and Platinum</strong> members are entitled to a 1-year subscription to The Atlantic. This offer is available each year that you qualify.</p>
         <label><input type="radio" name="atlantic_status" id="atlantic_new" value="new" <?php if ($atlantic_status == 'new') { ?> checked="checked"<?php } ?>> Start a new subscription</label>
         <label><input type="radio" name="atlantic_status" id="atlantic_existing" value="existing" <?php if ($atlantic_status === 'existing') { ?> checked="checked"<?php } ?>> Extend an existing subscription</label>
         <div class="form-item atlantic_id">
@@ -92,7 +92,7 @@
 
         <div class="form-item">
             <label>
-                <input type="checkbox" value="1" name="use_different_address" id="use_different_address"> Use a different name/address for your gifts
+                <input type="checkbox" value="1" name="use_different_address" id="use_different_address"> Use a different name/address for your gift(s)
             </label>
         </div>
 
