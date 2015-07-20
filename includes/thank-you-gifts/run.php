@@ -94,6 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') { // form has not been s
 		$sql .= ", atlantic_id = ''";
 	}
 
+	$sql .= ", submitted=NOW()";
+
 	// email
 	$email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
