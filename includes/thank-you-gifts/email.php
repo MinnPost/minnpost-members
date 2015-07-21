@@ -6,11 +6,11 @@ $message .= "MinnPost
 $message .= "Thank you for supporting MinnPost
 ---------------------------------\r\n\r\n";
 
-if ($swag_status !== 'declined') {
+if ($swag_status !== '' && $swag_status !== 'declined') {
 	$message .= "We will send your MinnPost $swag_status to you as soon as possible.\r\n\r\n";
 }
 
-if ($atlantic_status !== 'declined') {
+if ($atlantic_status !== '' && $atlantic_status !== 'declined') {
 $message .= "We will submit a subscription request to The Atlantic on your behalf. That request will include the following information, which we received from you just now:\r\n
 	- Atlantic Subscription Status: $atlantic_status\r\n";
 	if ($atlantic_status == 'existing') {

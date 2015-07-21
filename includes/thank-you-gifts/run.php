@@ -41,20 +41,20 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') { // form has not been s
 	$atlantic_status = $account['atlantic_status'];
 	$swag_status = $account['swag_status'];
 
-	// we don't know anything about their atlantic status. give them a default value of new in the form
-	if (!isset($account['atlantic_status'])) {
-    	$atlantic_status = 'new';
-    }
-	if ($atlantic_status == 'existing') {
-		$atlantic_id = $account['atlantic_id'];
-	}
-
 	if (in_array($member_level, $swag_levels) && $swag_status !== 'declined') { // check level here
 		$show_swag = TRUE;
 	}
 	
 	if (in_array($member_level, $atlantic_levels) && $atlantic_status !== 'new' && $atlantic_status !== 'existing' && $atlantic_status !== 'declined') { // check level here
 		$show_atlantic = TRUE;
+	}
+
+	// we don't know anything about their atlantic status. give them a default value of new in the form
+	if (!isset($account['atlantic_status'])) {
+    	$atlantic_status = 'new';
+    }
+	if ($atlantic_status == 'existing') {
+		$atlantic_id = $account['atlantic_id'];
 	}
 
 	if ($_GET['debug'] === 'true') {
@@ -77,15 +77,23 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') { // form has not been s
 		$valid = FALSE;
 	}
 
-	if ($atlantic_status !== 'declined') { // they've accepted the atlantic
-		$sql .= " atlantic_accepted = 1";
+	if ($atlantic_status !== '' && $atlantic_status !== 'declined') { // they've accepted the atlantic
+		$sql .= " atlantic_accepted = 1, atlantic_status = '$atlantic_status', atlantic_timestamp=NOW()";
+	} else if ($atlantic_status !== '' && $atlantic_status === 'declined') { // they've declined atlantic
+		$sql .= " atlantic_accepted = 0, atlantic_status = '$atlantic_status', atlantic_timestamp=NOW()";
 	}
 
-	if ($swag_status !== 'declined') { // they've accepted a swag item
-		$sql .= ", swag_accepted = 1";
+	if ($swag_status !== '' && $swag_status !== 'declined') { // they've accepted a swag item
+		if ($atlantic_status !== '') {
+			$sql .= ', ';
+		}
+		$sql .= " swag_accepted = 1, swag_status = '$swag_status', swag_timestamp=NOW()";
+	} else if ($swag_status !== '' && $swag_status === 'declined') { // they've declined a swag item
+		if ($atlantic_status !== '') {
+			$sql .= ', ';
+		}
+		$sql .= " swag_accepted = 0, swag_status = '$swag_status', swag_timestamp=NOW()";
 	}
-
-	$sql .= ", atlantic_status = '$atlantic_status', swag_status = '$swag_status'";
 
 	if ($atlantic_status == 'existing') {
 		$atlantic_id = filter_var($_POST['atlantic_id'], FILTER_SANITIZE_STRING);
@@ -93,8 +101,6 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') { // form has not been s
 	} else if ($atlantic_status == 'new') {
 		$sql .= ", atlantic_id = ''";
 	}
-
-	$sql .= ", submitted=NOW()";
 
 	// email
 	$email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);

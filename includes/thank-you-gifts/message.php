@@ -1,11 +1,11 @@
 <section>
 	<h3 class="component-label">Thank you for supporting MinnPost</h3>
 
-	<?php if ($swag_status !== 'declined') { ?>
+	<?php if ($swag_status !== '' && $swag_status !== 'declined') { ?>
 	<p>We will send your MinnPost <?php echo $swag_status; ?> to you as soon as possible.</p>
 	<?php } ?>
 
-	<?php if ($atlantic_status !== 'declined') { ?>
+	<?php if ($atlantic_status !== '' && $atlantic_status !== 'declined') { ?>
 	<p>We will submit a subscription request to The Atlantic on your behalf. That request will include the following information, which we received from you just now:</p>
 	<ul>
 		<li><strong>Atlantic Subscription Status</strong>: <?php echo $atlantic_status; ?></li>
