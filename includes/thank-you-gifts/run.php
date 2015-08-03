@@ -72,8 +72,24 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') { // form has not been s
 	$atlantic_status = filter_var($_POST['atlantic_status'], FILTER_SANITIZE_STRING); // allow for declined here
 	$swag_status = filter_var($_POST['swag_status'], FILTER_SANITIZE_STRING); // allow for declined here
 
-	if ( (!isset($atlantic_status) && !isset($swag_status)) || ( !in_array($member_level, $swag_levels) && !in_array($member_level, $atlantic_levels) ) ) {
+	if ( (!isset($atlantic_status) && !isset($swag_status)) || ($atlantic_status === '' && $swag_status === '') || ( !in_array($member_level, $swag_levels) && !in_array($member_level, $atlantic_levels) ) ) {
 		// they didn't submit anything or they don't qualify
+		$valid = FALSE;
+	}
+
+	if (in_array($member_level, $swag_levels) && $swag_status !== 'declined') { // check level here
+		$show_swag = TRUE;
+	}
+	
+	if (in_array($member_level, $atlantic_levels) && $atlantic_status !== 'new' && $atlantic_status !== 'existing' && $atlantic_status !== 'declined') { // check level here
+		$show_atlantic = TRUE;
+	}
+
+	if ($show_atlantic === TRUE && $atlantic_status === '') {
+		$valid = FALSE;
+	}
+
+	if ($show_swag === TRUE && $swag_status === '') {
 		$valid = FALSE;
 	}
 
@@ -188,6 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' && $id !== '') { // form has not been s
 		include('config.php');
 		//echo $sql;
 		if(!$result = $db->query($sql)){
+			echo $sql;
 			die('There was an error running the query [' . $db->error . ']');
 		} // was successful
 

@@ -3,9 +3,23 @@
     <input type="hidden" value="<?php echo $account['salesforce_id']; ?>" name="id" id="id">
 
     <?php if ($show_swag === TRUE) { ?>
-    <p class="large">As a MinnPost member, you are entitled to a MinnPost mug or water bottle<?php if ($show_atlantic === TRUE) { ?> AND a one-year subscription to the Atlantic<?php } ?>. Use this form to make your choices.</p>
+    <p class="large">As a MinnPost <?php echo ucfirst($member_level); ?> member, you are entitled to a MinnPost mug or water bottle<?php if ($show_atlantic === TRUE) { ?> AND a one-year subscription to the Atlantic<?php } ?>. Use this form to make your choices.</p>
     <?php } else if ($swag_status !== 'declined') { ?>
-    <p class="large">MinnPost members at Silver level or above are entitled to a MinnPost mug or water bottle, and those at Gold or above are entitled to a one-year subscription to the Atlantic. <a href="https://www.minnpost.com/support/member-benefits">Learn more about this</a>.</p>
+    <p class="large error">Our records indicate that your MinnPost membership level is <?php echo ucfirst($member_level); ?>. If this may be incorrect, contact us at <a href="mailto:members@minnpost.com">members@minnpost.com</a>.</p>
+    <?php } ?>
+
+    <?php if ($valid === FALSE) { ?>
+    <div class="error">
+        <p>Sorry, there is missing information in your submission.</p>
+        <ul>
+            <?php if ($show_swag === TRUE && $swag_status === '') {?>
+            <li>Please pick either the MinnPost mug, water bottle, or neither by clicking your choice.</li>
+            <?php } ?>
+            <?php if ($show_atlantic === TRUE && $atlantic_status === '') {?>
+            <li>Please select whether you'd like a new or extended Atlantic subscription, or if you'd like to decline this item.</li>
+            <?php } ?>
+        </ul>
+    </div>
     <?php } ?>
     
     <?php if ($show_swag === TRUE) { ?>
